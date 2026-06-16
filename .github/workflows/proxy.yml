@@ -17,13 +17,13 @@ jobs:
 
       - name: Pull, flatten via export/import (strips xattrs), push
         run: |
-          docker pull --platform linux/arm64 homeassistant/aarch64-homeassistant:2026.6.3
+          docker pull --platform linux/arm64 homeassistant/home-assistant:latest
 
           python3 << 'EOF'
           import subprocess, json
 
           config = json.loads(subprocess.check_output([
-              'docker', 'inspect', 'homeassistant/aarch64-homeassistant:2026.6.3'
+              'docker', 'inspect', 'homeassistant/home-assistant:latest'
           ]))[0]['Config']
 
           changes = []
@@ -40,7 +40,7 @@ jobs:
           for port in (config.get('ExposedPorts') or {}):
               changes += ['--change', f'EXPOSE {port}']
 
-          subprocess.run(['docker', 'create', '--name', 'tmp_ha',
+          subprocess.run(['docker', 'create', '--platform', 'linux/arm64', '--name', 'tmp_ha',
                           'homeassistant/home-assistant:latest'], check=True)
 
           export = subprocess.Popen(['docker', 'export', 'tmp_ha'], stdout=subprocess.PIPE)
