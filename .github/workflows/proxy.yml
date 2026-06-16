@@ -17,13 +17,13 @@ jobs:
 
       - name: Pull, flatten via export/import (strips xattrs), push
         run: |
-          docker pull homeassistant/home-assistant:latest
+          docker pull homeassistant/aarch64-homeassistant:2026.6.3
 
           python3 << 'EOF'
           import subprocess, json
 
           config = json.loads(subprocess.check_output([
-              'docker', 'inspect', 'homeassistant/home-assistant:latest'
+              'docker', 'inspect', 'homeassistant/aarch64-homeassistant:2026.6.3'
           ]))[0]['Config']
 
           changes = []
