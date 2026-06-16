@@ -44,7 +44,7 @@ jobs:
                           'homeassistant/home-assistant:latest'], check=True)
 
           export = subprocess.Popen(['docker', 'export', 'tmp_ha'], stdout=subprocess.PIPE)
-          subprocess.run(['docker', 'import'] + changes + ['-', 'benhdavis/home-assistant:latest'],
+          subprocess.run(['docker', 'import'] + changes + ['-', 'pcosway/home-assistant:latest'],
                          stdin=export.stdout, check=True)
           export.wait()
           subprocess.run(['docker', 'rm', 'tmp_ha'], check=True)
