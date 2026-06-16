@@ -51,4 +51,4 @@ jobs:
           print('Import complete')
           EOF
 
-          docker push benhdavis/home-assistant:latest
+          docker push pcosway/home-assistant:latest
